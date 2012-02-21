@@ -1,0 +1,6 @@
+.buildpath
+.project
+.settings/*
+.DS_Store
+.DS_STORE
+_notes
