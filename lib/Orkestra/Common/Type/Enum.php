@@ -10,7 +10,7 @@ namespace Orkestra\Common\Type;
 abstract class Enum
 {
     /**
-     * @var array An array of possible values. This field is filled using Reflection to get the class constants
+     * @var array An array containing all possible values for all enums that exist during the execution of this script
      */
     protected static $_values;
     
@@ -26,13 +26,15 @@ abstract class Enum
      */
     public function __construct($value)
     {
-        if (empty(static::$_values)) {
-            $refl = new \ReflectionClass(get_class($this));
-            static::$_values = array_values($refl->getConstants());
-        }
+        $className = get_class($this);
         
-        if (!in_array($value, static::$_values)) {
-            throw new \InvalidArgumentException(sprintf('Invalid value specified for enumeration %s: %s', get_class($this), $value));
+        if (empty(static::$_values[$className])) {
+            $refl = new \ReflectionClass($className);
+            static::$_values[$className] = array_values($refl->getConstants());
+        }
+
+        if (!in_array($value, static::$_values[$className])) {
+            throw new \InvalidArgumentException(sprintf('Invalid value specified for enum %s: %s', $className, $value));
         }
         
         $this->_value = $value;
