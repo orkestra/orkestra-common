@@ -32,6 +32,10 @@ abstract class EnumTypeBase extends StringType
     {
         $class = $this->_class;
         
+        if ($value === null) {
+            return null;
+        }
+        
         try {
             $value = new $class($value);
         }

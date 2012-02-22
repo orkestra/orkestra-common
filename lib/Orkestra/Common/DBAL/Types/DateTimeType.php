@@ -2,7 +2,7 @@
 
 namespace Orkestra\Common\DBAL\Types;
 
-use Doctrine\DBAL\Types\DateTimeType,
+use Doctrine\DBAL\Types\DateTimeType as DateTimeTypeBase,
     Doctrine\DBAL\Platforms\AbstractPlatform,
     Doctrine\DBAL\Types\ConversionException;
     
@@ -14,7 +14,7 @@ use Orkestra\Common\Type\DateTime,
  *
  * Provides Doctrine DBAL support for Orkestra's custom DateTime and NullDateTime implementations
  */
-class DateTimeType extends DateTimeType
+class DateTimeType extends DateTimeTypeBase
 {
     /**
      * {@inheritdoc}
