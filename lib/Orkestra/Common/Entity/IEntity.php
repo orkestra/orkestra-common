@@ -2,8 +2,6 @@
 
 namespace Orkestra\Common\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Entity Interface
  *
