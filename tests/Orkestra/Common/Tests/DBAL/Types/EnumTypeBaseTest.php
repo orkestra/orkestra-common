@@ -73,6 +73,15 @@ class EnumTypeBaseTest extends TestCase
         $this->assertNull($enum);
     }
     
+    public function testConvertEmptyStringToPhpValueReturnsNull()
+    {
+        $value = '';
+        
+        $enum = $this->_enumType->convertToPHPValue($value, $this->_platform);
+        
+        $this->assertNull($enum);
+    }
+    
     public function testConvertInvalidValueToPhpValueThrowsException()
     {
         $this->setExpectedException('Doctrine\DBAL\Types\ConversionException', 'Could not convert database value "Invalid Value" to Doctrine Type test.enum');
