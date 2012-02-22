@@ -17,7 +17,7 @@ class EntityBaseTest extends TestCase
 {
     public function testPrePersistSetsDateCreated() 
     {
-        $entity = new TestEntity();
+        $entity = $this->getMockForAbstractClass('Orkestra\Common\Entity\EntityBase');
 
         $this->assertInstanceOf('Orkestra\Common\Type\NullDateTime', $entity->getDateCreated());
         
@@ -28,7 +28,7 @@ class EntityBaseTest extends TestCase
     
     public function testPreUpdateSetsDateModified() 
     {
-        $entity = new TestEntity();
+        $entity = $this->getMockForAbstractClass('Orkestra\Common\Entity\EntityBase');
         
         $this->assertInstanceOf('Orkestra\Common\Type\NullDateTime', $entity->getDateModified());
         
@@ -39,7 +39,7 @@ class EntityBaseTest extends TestCase
     
 	public function testSettersAndGetters()
     {
-        $entity = new TestEntity();
+        $entity = $this->getMockForAbstractClass('Orkestra\Common\Entity\EntityBase');
                 
         $signature = get_class($entity) . ':' . spl_object_hash($entity);
                 
@@ -59,16 +59,4 @@ class EntityBaseTest extends TestCase
         
 		$this->assertEquals($signature, $entity->__toString());
     }
-}
-
-/**
- * Test Entity
- *
- * This is here because when testing with PHP 5.3.10 and PHPUnit 3.5.1,
- * a segmentation fault occurs when the following is called:
- *     $this->getMockForAbstractClass('Orkestra\Common\Entity\EntityBase');
- */
-class TestEntity extends EntityBase
-{
-    
 }
