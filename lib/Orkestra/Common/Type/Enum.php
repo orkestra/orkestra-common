@@ -1,6 +1,6 @@
 <?php
 
-namespace Orkestra\Common\Data;
+namespace Orkestra\Common\Type;
 
 /**
  * Enum
