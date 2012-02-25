@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Request object into a Response object
  *
  * @package Orkestra
- * @subpackage Transactor
+ * @subpackage Common
  */
 interface IKernel
 {

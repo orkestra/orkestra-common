@@ -2,8 +2,10 @@
 
 namespace Orkestra\Common\Kernel;
 
-use Symfony\Component\HttpFoundation\Request,
-    Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+    
+use Orkestra\Common\Kernel\Soap\SoapRequest,
+    Orkestra\Common\Kernel\Soap\SoapResponse;
 
 /**
  * Soap Kernel
@@ -12,42 +14,39 @@ use Symfony\Component\HttpFoundation\Request,
  * a normalized Response object.
  *
  * @package Orkestra
- * @subpackage Transactor
+ * @subpackage Common
  */
 class SoapKernel implements IKernel
 {
     /**
      * {@inheritdoc}
+     *
+     * @return Orkestra\Common\Kernel\Soap\SoapResponse
      */
     public function handle(Request $request)
     {
-        if (!$request->has('action')) {
-            throw new KernelException('Unable to process request. No action specified');
+        if (!$request instanceof SoapRequest) {
+            throw new KernelException(sprintf('SoapKernel expects argument 1 to be of type Orkestra\Common\Kernel\Soap\SoapRequest, type %s given', get_class($request)));
         }
         
         $client = new \SoapClient($request->getUri(), array(
-        	"trace" => 1,
+        	"trace" => true,
         	"exceptions" => true,
         ));
         
-        $headers = $request->headers->all();
         $content = $request->getContent();
-        $action = $request->get('action');
         
         try {
-            $rawResponse = $client->__soapCall($action, $content, array(), $headers);
-            
-            $body = $rawResponse;
-            $code = 200;
+            $data = $client->__soapCall($request->getSoapAction(), $content);
         }
         catch (\Exception $e) {
-            $body = $e->getMessage();
-            $code = 500;
+            $data = $e;
         }
-        
-        $headers = $client->__getLastResponseHeaders();
-    
-        $response = new Response($body, $code, $headers);
+
+        $header = $client->__getLastResponseHeaders();
+        $raw = $client->__getLastResponse();
+
+        $response = new SoapResponse($raw, $data, $header);
         
         return $response;
     }

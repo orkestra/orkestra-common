@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request,
  * a normalized Response object.
  *
  * @package Orkestra
- * @subpackage Transactor
+ * @subpackage Common
  */
 class HttpKernel implements IKernel
 {
