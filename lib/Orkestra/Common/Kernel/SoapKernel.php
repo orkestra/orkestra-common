@@ -5,7 +5,8 @@ namespace Orkestra\Common\Kernel;
 use Symfony\Component\HttpFoundation\Request;
     
 use Orkestra\Common\Kernel\Soap\SoapRequest,
-    Orkestra\Common\Kernel\Soap\SoapResponse;
+    Orkestra\Common\Kernel\Soap\SoapResponse,
+    Orkestra\Common\Exception\KernelException;
 
 /**
  * Soap Kernel
