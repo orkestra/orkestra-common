@@ -21,7 +21,7 @@ class SoapRequest extends Request
     protected $_soapAction;
     
     /**
-     * Create
+     * Create Soap Request
      *
      * @param string $uri
      * @param string $soapAction
@@ -29,7 +29,7 @@ class SoapRequest extends Request
      * @param array $headers
      * @return Orkestra\Common\Kernel\Soap\SoapRequest
      */
-    public static function create($uri, $soapAction, $arguments, $headers = array())
+    public static function createSoapRequest($uri, $soapAction, $arguments, $headers = array())
     {
         $request = parent::create($uri, 'POST', array(), array(), array(), array(), array($arguments));
         $request->_soapAction = $soapAction;

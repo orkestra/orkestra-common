@@ -30,12 +30,17 @@ class SoapKernel implements IKernel
             throw new KernelException(sprintf('SoapKernel expects argument 1 to be of type Orkestra\Common\Kernel\Soap\SoapRequest, type %s given', get_class($request)));
         }
         
-        $client = new \SoapClient($request->getUri(), array(
-        	"trace" => true,
-        	"exceptions" => true,
-        ));
+        try {
+            $client = new \SoapClient($request->getUri(), array(
+            	"trace" => true,
+            	"exceptions" => true,
+            ));
         
-        $content = $request->getContent();
+            $content = $request->getContent();
+        }
+        catch (\Exception $e) {
+            $response = new SoapResponse($e->__toString(), $e, 'HTTP/1.1 500 Internal Server Error');
+        }
         
         try {
             $data = $client->__soapCall($request->getSoapAction(), $content);

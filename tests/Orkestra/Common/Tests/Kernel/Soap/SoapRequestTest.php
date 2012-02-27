@@ -16,7 +16,7 @@ class SoapRequestTest extends TestCase
 {
     public function testCreate()
     {
-        $request = SoapRequest::create('http://www.example.com/', 'test', array('param' => 'value'), array('Header' => 'Value'));
+        $request = SoapRequest::createSoapRequest('http://www.example.com/', 'test', array('param' => 'value'), array('Header' => 'Value'));
         
         $this->assertInstanceOf('Orkestra\Common\Kernel\Soap\SoapRequest', $request);
         $this->assertEquals('test', $request->getSoapAction());

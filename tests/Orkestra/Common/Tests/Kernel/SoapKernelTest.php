@@ -19,7 +19,7 @@ class SoapKernelTest extends TestCase
 {
     public function testCreate()
     {
-        $request = SoapRequest::create('http://www.webservicex.net/length.asmx?WSDL', 'ChangeLengthUnit', array('LengthValue' => 10, 'fromLengthUnit' => 'Feet', 'toLengthUnit' => 'Inches'));
+        $request = SoapRequest::createSoapRequest('http://www.webservicex.net/length.asmx?WSDL', 'ChangeLengthUnit', array('LengthValue' => 10, 'fromLengthUnit' => 'Feet', 'toLengthUnit' => 'Inches'));
         
         $kernel = new SoapKernel();
         

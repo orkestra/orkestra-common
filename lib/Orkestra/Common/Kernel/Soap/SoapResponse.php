@@ -29,6 +29,7 @@ class SoapResponse extends Response
     public function __construct($content, $data, $header = '')
     {
         $code = (int)substr($header, 9, 3);
+        if (0 === $code) { $code = 500; }
         $headers = $this->_normalizeHeader($header);
 
         parent::__construct($content, $code, $headers);
