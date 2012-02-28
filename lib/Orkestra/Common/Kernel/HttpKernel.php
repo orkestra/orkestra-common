@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request,
  * @package Orkestra
  * @subpackage Common
  */
-class HttpKernel implements IKernel
+class HttpKernel extends KernelBase
 {
     /**
      * {@inheritdoc}

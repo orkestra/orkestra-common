@@ -17,7 +17,7 @@ use Orkestra\Common\Kernel\Soap\SoapRequest,
  * @package Orkestra
  * @subpackage Common
  */
-class SoapKernel implements IKernel
+class SoapKernel extends KernelBase
 {
     /**
      * {@inheritdoc}
@@ -48,7 +48,11 @@ class SoapKernel implements IKernel
         catch (\Exception $e) {
             $data = $e;
         }
-
+        
+        $this->_log('SoapKernel: Request to ' . $request->getUri());
+        $this->_log('SoapKernel: Request: ' . $client->__getLastRequest());
+        $this->_log('SoapKernel: Response: ' . $client->__getLastResponse());
+        
         $header = $client->__getLastResponseHeaders();
         $raw = $client->__getLastResponse();
 
