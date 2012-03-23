@@ -45,6 +45,10 @@ class HttpKernel extends KernelBase
         $body = ltrim(substr($rawResponse, $info['header_size']));
         $code = $info['http_code'];
         
+        $this->_log('HttpKernel: Request to ' . $request->getUri());
+        $this->_log('HttpKernel: Request: ' . http_build_query($params));
+        $this->_log('HttpKernel: Response: ' . $body);
+        
         $response = new Response($body, $code, $headers);
         
         return $response;
