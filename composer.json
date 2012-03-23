@@ -1,0 +1,16 @@
+{
+    "name" : "orkestra/common",
+    "description" : "Provides common functionality useful for any project",
+    "require" : {
+        "php" : ">=5.3.2",
+        "ext-curl" : "*",
+        "ext-soap" : "*",
+        "doctrine/common" : "2.1.4",
+        "doctrine/dbal" : "2.1.6",
+        "doctrine/orm" : "2.1.6",
+        "symfony/http-foundation" : "2.0.12"
+    },
+    "autoload" : {
+        "psr-0" : { "Orkestra\\Transactor" : "lib/" }
+    }
+}
