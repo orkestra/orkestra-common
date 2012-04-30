@@ -11,6 +11,9 @@ use Orkestra\Common\Tests\TestCase,
  * Enum Test
  *
  * Tests the functionality provided by the Enum class
+ *
+ * @group orkestra
+ * @group common
  */
 class EnumTest extends TestCase
 {

@@ -12,6 +12,9 @@ use Orkestra\Common\Tests\TestCase,
  * DateType Test
  *
  * Tests the functionality of the DateType DBAL datatype
+ *
+ * @group orkestra
+ * @group common
  */
 class DateTypeTest extends TestCase
 {

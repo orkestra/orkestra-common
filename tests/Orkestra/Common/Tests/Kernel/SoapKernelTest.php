@@ -13,6 +13,8 @@ use Orkestra\Common\Tests\TestCase,
  *
  * Tests the functionality provided by the SoapRequest class
  *
+ * @group orkestra
+ * @group common
  * @group integration
  */
 class SoapKernelTest extends TestCase

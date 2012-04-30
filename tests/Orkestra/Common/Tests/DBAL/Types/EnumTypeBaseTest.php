@@ -14,6 +14,9 @@ use Orkestra\Common\Tests\TestCase,
  * EnumTypeBase Test
  *
  * Tests the functionality provided by the EnumTypeBase class
+ *
+ * @group orkestra
+ * @group common
  */
 class EnumTypeBaseTest extends TestCase
 {

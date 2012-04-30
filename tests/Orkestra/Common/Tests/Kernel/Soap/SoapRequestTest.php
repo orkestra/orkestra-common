@@ -11,6 +11,9 @@ use Orkestra\Common\Tests\TestCase,
  * SoapRequest Test
  *
  * Tests the functionality provided by the SoapRequest class
+ *
+ * @group orkestra
+ * @group common
  */
 class SoapRequestTest extends TestCase
 {
