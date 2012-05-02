@@ -8,22 +8,22 @@ namespace Orkestra\Common\Daemon;
 class Daemon
 {
     /**
-     * @var int
+     * @var int The pid of the parent process
      */
 	protected $_pid;
 
     /**
-     * @var array
+     * @var array An array of child pids
      */
 	protected $_pids = array();
 
     /**
-     * @var array
+     * @var array An array of executable worker scripts
      */
 	protected $_workers = array();
 
     /**
-     * @var int
+     * @var int The maximum number of child workers to spawn
      */
 	protected $_maxChildren = 1;
 
