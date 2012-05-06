@@ -79,9 +79,9 @@ class Daemon
 		
 		do {
             // Spawn a new worker if necessary
-			if (count($this->_workers) > 0 && count($this->_pids) < $this->_maxChildren) {
+			if ($this->_hasMoreWork() && count($this->_pids) < $this->_maxChildren) {
 				$pid = pcntl_fork();
-				list($worker, $arguments) = array_shift($this->_workers);
+				list($worker, $arguments) = $this->_getNextWorker();
 
 				if (!$pid) {
 					// New worker process
@@ -136,6 +136,26 @@ class Daemon
 		    	printf('I have %s child processes', count($this->_pids));
 		}
 	}
+
+    /**
+     * Returns true if there is work to be done
+     *
+     * @return bool
+     */
+    protected function _hasMoreWork()
+    {
+        return count($this->_workers) > 0;
+    }
+
+    /**
+     * Gets the next available worker
+     *
+     * @return array|null Array of command, arguments or null if no more workers
+     */
+    protected function _getNextWorker()
+    {
+        return $this->_hasMoreWork() ? array_shift($this->_workers) : null;
+    }
 
     /**
      * Gets the parent's PID
