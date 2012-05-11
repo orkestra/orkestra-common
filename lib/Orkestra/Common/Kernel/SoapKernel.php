@@ -37,27 +37,27 @@ class SoapKernel extends KernelBase
             ));
         
             $content = $request->getContent();
+
+            try {
+                $data = $client->__soapCall($request->getSoapAction(), $content);
+            }
+            catch (\Exception $e) {
+                $data = $e;
+            }
+
+            $this->_log('SoapKernel: Request to ' . $request->getUri());
+            $this->_log('SoapKernel: Request: ' . $client->__getLastRequest());
+            $this->_log('SoapKernel: Response: ' . $client->__getLastResponse());
+
+            $header = $client->__getLastResponseHeaders();
+            $raw = $client->__getLastResponse();
+
+            $response = new SoapResponse($raw, $data, $header);
         }
         catch (\Exception $e) {
             $response = new SoapResponse($e->__toString(), $e, 'HTTP/1.1 500 Internal Server Error');
         }
-        
-        try {
-            $data = $client->__soapCall($request->getSoapAction(), $content);
-        }
-        catch (\Exception $e) {
-            $data = $e;
-        }
-        
-        $this->_log('SoapKernel: Request to ' . $request->getUri());
-        $this->_log('SoapKernel: Request: ' . $client->__getLastRequest());
-        $this->_log('SoapKernel: Response: ' . $client->__getLastResponse());
-        
-        $header = $client->__getLastResponseHeaders();
-        $raw = $client->__getLastResponse();
 
-        $response = new SoapResponse($raw, $data, $header);
-        
         return $response;
     }
 }
