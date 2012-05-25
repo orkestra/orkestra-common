@@ -1,0 +1,37 @@
+{
+    "hash": "0980483b6bef98ab55866b167ec406e9",
+    "packages": [
+        {
+            "package": "doctrine/common",
+            "version": "2.1.4"
+        },
+        {
+            "package": "doctrine/dbal",
+            "version": "2.1.6"
+        },
+        {
+            "package": "doctrine/orm",
+            "version": "2.1.6"
+        },
+        {
+            "package": "symfony/http-foundation",
+            "version": "2.0.x-dev",
+            "source-reference": "1603509cd64acf8de32209356e6fed3d3dff7c5f"
+        },
+        {
+            "package": "symfony/http-foundation",
+            "version": "dev-master",
+            "source-reference": "5b1581418381f46679604fd19efc8b518f2390ae",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "dev",
+    "stability-flags": [
+
+    ]
+}
