@@ -1,29 +1,22 @@
 {
-    "hash": "0980483b6bef98ab55866b167ec406e9",
+    "hash": "eae482a00ed61e7e5319b8bd69be3ca7",
     "packages": [
         {
             "package": "doctrine/common",
-            "version": "2.1.4"
+            "version": "2.2.2"
         },
         {
             "package": "doctrine/dbal",
-            "version": "2.1.6"
+            "version": "2.2.2"
         },
         {
             "package": "doctrine/orm",
-            "version": "2.1.6"
+            "version": "2.2.2"
         },
         {
             "package": "symfony/http-foundation",
             "version": "2.0.x-dev",
-            "source-reference": "1603509cd64acf8de32209356e6fed3d3dff7c5f"
-        },
-        {
-            "package": "symfony/http-foundation",
-            "version": "dev-master",
-            "source-reference": "5b1581418381f46679604fd19efc8b518f2390ae",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
+            "source-reference": "76984426c5f33a1fa079671bab5fb314b7d0b774"
         }
     ],
     "packages-dev": null,
