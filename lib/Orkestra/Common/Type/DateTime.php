@@ -35,7 +35,7 @@ class DateTime extends \DateTime
     /**
      * @param string $format
      * @param string $time
-     * @param null $timezone
+     * @param null|\DateTimeZone $timezone
      *
      * @throws \Orkestra\Common\Exception\TypeException
      * @return \Orkestra\Common\Type\DateTime
@@ -63,7 +63,7 @@ class DateTime extends \DateTime
      *
      * @var string $date A formatted datetime string
      *
-     * @return Orkestra\Common\Type\DateTime
+     * @return \Orkestra\Common\Type\DateTime
      */
     public static function createFromDefaultFormat($datetime)
     {
@@ -84,7 +84,7 @@ class DateTime extends \DateTime
     /**
      * Sets the default server timezone
      *
-     * @param DateTimeZone $timezone
+     * @param \DateTimeZone $timezone
      */
     public static function setServerTimezone(\DateTimeZone $timezone)
     {
@@ -94,7 +94,7 @@ class DateTime extends \DateTime
     /**
      * Gets the default server timezone
      *
-     * @return DateTimeZone
+     * @return \DateTimeZone
      */
     public static function getServerTimezone()
     {
@@ -104,7 +104,7 @@ class DateTime extends \DateTime
     /**
      * Sets the user's local timezone
      *
-     * @param DateTimeZone $timezone
+     * @param \DateTimeZone $timezone
      */
     public static function setUserTimezone(\DateTimeZone $timezone)
     {
@@ -114,7 +114,7 @@ class DateTime extends \DateTime
     /**
      * Gets the user's local timezone
      *
-     * @return DateTimeZone
+     * @return \DateTimeZone
      */
     public static function getUserTimezone()
     {
@@ -145,7 +145,7 @@ class DateTime extends \DateTime
      * Constructor
      *
      * @param string $time
-     * @param DateTimeZone|null $timezone
+     * @param \DateTimeZone|null $timezone
      */
     public function __construct($time = 'now', DateTimeZone $timezone = null)
     {
