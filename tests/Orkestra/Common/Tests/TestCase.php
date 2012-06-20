@@ -8,29 +8,6 @@ namespace Orkestra\Common\Tests;
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Symfony\Component\DependencyInjection\ContainerInterface
-     */
-    protected $_container;
-    
-    protected function setUp()
-    {
-        $this->_createContainer();
-    }
-    
-    /**
-     * Creates a new, empty dependency injection container
-     */
-    protected function _createContainer($new = true)
-    {
-        if (!$new && !empty($this->_container)) {
-            return;
-        }
-        
-        $this->_container = new \Symfony\Component\DependencyInjection\ContainerBuilder();
-        \Model\Common\Registry::set('container', $this->_container);
-    }
-    
-    /**
      * Set Property
      *
      * Sets an inaccessible property to a new value
@@ -47,7 +24,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         $reflectedProperty->setAccessible(true);
         $reflectedProperty->setValue($object, $value);
     }
-    
+
     /**
      * Set Static Property
      *
@@ -64,7 +41,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         $reflectedProperty->setAccessible(true);
         $reflectedProperty->setValue($value);
     }
-    
+
     /**
      * Call Method
      *
