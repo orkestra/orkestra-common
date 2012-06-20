@@ -22,39 +22,39 @@ class HttpKernel extends KernelBase
     public function handle(Request $request)
     {
         $ch = curl_init($request->getUri());
-        
+
         $headers = $this->_convertHeadersToCurlFormat($request->headers->all());
         $params = $request->request->all();
-        
+
         if ($request->getMethod() == 'POST') {
             curl_setopt($ch, CURLOPT_POST, true);
-        }
-        else if ($request->getMethod() != 'GET') {
+        } elseif ($request->getMethod() != 'GET') {
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $request->getMethod());
         }
+
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, true);
-        
+
         $rawResponse = curl_exec($ch);
 
         $info = curl_getinfo($ch);
 
         $headers = explode("\n", substr($rawResponse, 0, $info['header_size']));
         $body = ltrim(substr($rawResponse, $info['header_size']));
-        $code = $info['http_code'];
-        
+        $code = $info['http_code'] ?: 500;
+
         $this->_log('HttpKernel: Request to ' . $request->getUri());
         $this->_log('HttpKernel: Request: ' . http_build_query($params));
         $this->_log('HttpKernel: Response: ' . $body);
-        
+
         $response = new Response($body, $code, $headers);
-        
+
         return $response;
     }
-    
-    /** 
+
+    /**
      * Convert Headers To Curl Format
      *
      * Converts a Request object's header format into the format used by cURL
@@ -65,15 +65,15 @@ class HttpKernel extends KernelBase
     protected function _convertHeadersToCurlFormat(array $headers)
     {
         $result = array();
-        
+
         foreach ($headers as $directive => $value) {
             if (is_array($value)) {
                 $value = $value[0];
             }
-            
+
             $result[] = "{$directive}: {$value}";
         }
-        
+
         return $result;
     }
 }
