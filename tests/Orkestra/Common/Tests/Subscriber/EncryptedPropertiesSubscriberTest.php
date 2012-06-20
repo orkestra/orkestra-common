@@ -30,7 +30,7 @@ class EncryptedPropertiesSubscriberTest extends TestCase
         $entity = new TestEncryptedEntity();
         $entity->property = 'This is a message';
 
-        $args = new LifecycleEventArgs($entity, null);
+        $args = new LifecycleEventArgs($entity, $this->getMock('Doctrine\ORM\EntityManager', array(), array(), '', false));
 
         $subscriber->prePersist($args);
 
