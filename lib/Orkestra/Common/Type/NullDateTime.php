@@ -83,7 +83,7 @@ class NullDateTime extends DateTime
      */
     public function getTimeZone()
     {
-        return null;
+        return DateTime::getServerTimezone();
     }
 
     /**
