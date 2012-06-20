@@ -3,6 +3,7 @@
 namespace Orkestra\Common\Type;
 
 use Orkestra\Common\Exception\TypeException;
+use DateTimeZone;
 
 /**
  * DateTime
@@ -17,12 +18,12 @@ class DateTime extends \DateTime
     protected $isServerTime = true;
 
     /**
-     * @var DateTimeZone $serverTimezone The server's local timezone
+     * @var \DateTimeZone $serverTimezone The server's local timezone
      */
     private static $serverTimezone;
 
     /**
-     * @var DateTimeZone $localTimezone The user's local timezone
+     * @var \DateTimeZone $localTimezone The user's local timezone
      */
     private static $localTimezone;
 
@@ -32,23 +33,28 @@ class DateTime extends \DateTime
     private static $defaultFormat;
 
     /**
-     * @return Orkestra\Common\Type\DateTime
+     * @param string $format
+     * @param string $time
+     * @param null $timezone
+     *
+     * @throws \Orkestra\Common\Exception\TypeException
+     * @return \Orkestra\Common\Type\DateTime
      */
     public static function createFromFormat($format, $time, $timezone = null)
     {
-        $parent = parent::createFromFormat($format, $time);
-        
+        $parent = parent::createFromFormat($format, $time, self::$serverTimezone);
+
         if (empty($parent)) {
             throw new TypeException('Could not create DateTime from the given format');
         }
-        
+
         $timestamp = $parent->getTimestamp();
-        $dateTime = new self();
+        $dateTime = new self(null, self::$serverTimezone);
         $dateTime->setTimestamp($timestamp);
 
         return $dateTime;
     }
-    
+
     /**
      * Create From Default Format
      *
@@ -56,23 +62,14 @@ class DateTime extends \DateTime
      * datetime format
      *
      * @var string $date A formatted datetime string
+     *
      * @return Orkestra\Common\Type\DateTime
      */
     public static function createFromDefaultFormat($datetime)
     {
-        $parent = parent::createFromFormat(self::$defaultFormat, $datetime);
-        
-        if (empty($parent)) {
-            throw new TypeException('Could not create DateTime from the given format');
-        }
-        
-        $timestamp = $parent->getTimestamp();
-        $date = new self();
-        $date->setTimestamp($timestamp);
-        
-        return $date;
+        return self::createFromFormat(self::$defaultFormat, $datetime);
     }
-    
+
     /**
      * Converts a PHP format string to Javascript format
      *
@@ -145,6 +142,22 @@ class DateTime extends \DateTime
     }
 
     /**
+     * Constructor
+     *
+     * @param string $time
+     * @param DateTimeZone|null $timezone
+     */
+    public function __construct($time = 'now', DateTimeZone $timezone = null)
+    {
+        if (null === $timezone) {
+            $timezone = self::$serverTimezone;
+        }
+
+        parent::__construct($time, $timezone);
+    }
+
+
+    /**
      * To String
      *
      * Returns the DateTime in the user's timezone, using the configured default format
@@ -159,7 +172,7 @@ class DateTime extends \DateTime
     /**
      * Converts the internal timestamp to the server's local time
      *
-     * @return Orkestra\Common\Type\DateTime
+     * @return \Orkestra\Common\Type\DateTime
      */
     public function toServerTime()
     {
@@ -174,7 +187,7 @@ class DateTime extends \DateTime
     /**
      * Converts the internal timestamp to the user's local time
      *
-     * @return Orkestra\Common\Type\DateTime
+     * @return \Orkestra\Common\Type\DateTime
      */
     public function toUserTime()
     {
