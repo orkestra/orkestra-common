@@ -25,11 +25,19 @@ class EncryptedStringType extends StringType
      */
     protected $_key;
 
+    /**
+     * Sets the key to be used
+     *
+     * @param $key
+     */
     public function setKey($key)
     {
         $this->_key = $key;
     }
 
+    /**
+     * @return \Orkestra\Common\Cryptography\Encryptor
+     */
     private function _getEncryptor()
     {
         if (!$this->_encryptor) {
@@ -40,7 +48,10 @@ class EncryptedStringType extends StringType
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed $value
+     * @param \Doctrine\DBAL\Platforms\AbstractPlatform $platform
+     *
+     * @return mixed
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
@@ -56,7 +67,10 @@ class EncryptedStringType extends StringType
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed $value
+     * @param \Doctrine\DBAL\Platforms\AbstractPlatform $platform
+     *
+     * @return mixed
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {

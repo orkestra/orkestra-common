@@ -73,6 +73,16 @@ class Encryptor
     }
 
     /**
+     * Gets the maximum key size
+     *
+     * @return int
+     */
+    public function getKeySize()
+    {
+        return mcrypt_enc_get_key_size($this->_module);
+    }
+
+    /**
      * Encrypts a message
      *
      * @param $message
