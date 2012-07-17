@@ -8,15 +8,10 @@ use DateTimeZone;
 /**
  * DateTime
  *
- * Extends PHP's native DateTime to allow automatic conversion to and from user/server time
+ * Extends PHP's native DateTime to allow simplified conversion to and from user/server time
  */
 class DateTime extends \DateTime
 {
-    /**
-     * @var boolean $isServerTime True if the current timestamp is in the server's timezone
-     */
-    protected $isServerTime = true;
-
     /**
      * @var \DateTimeZone $serverTimezone The server's local timezone
      */
@@ -33,26 +28,38 @@ class DateTime extends \DateTime
     private static $defaultFormat;
 
     /**
+     * Create From Format
+     *
      * @param string $format
      * @param string $time
-     * @param null|\DateTimeZone $timezone
+     * @param \DateTimeZone|null $timezone
      *
      * @throws \Orkestra\Common\Exception\TypeException
      * @return \Orkestra\Common\Type\DateTime
      */
     public static function createFromFormat($format, $time, $timezone = null)
     {
-        $parent = parent::createFromFormat($format, $time, self::$serverTimezone);
+        if (null === $timezone) {
+            $timezone = self::getServerTimezone();
+        }
+
+        if (null === $timezone) {
+            // This is necessary due to how native DateTime handles passing null for a timezone (it doesnt)
+            $parent = parent::createFromFormat($format, $time);
+        } else {
+            $parent = parent::createFromFormat($format, $time, $timezone);
+        }
 
         if (empty($parent)) {
             throw new TypeException('Could not create DateTime from the given format');
         }
 
-        $timestamp = $parent->getTimestamp();
-        $dateTime = new self(null, self::$serverTimezone);
-        $dateTime->setTimestamp($timestamp);
+        $datetime = new self('@' . $parent->getTimestamp());
+        if (null !== $timezone) {
+            $datetime->setTimezone($timezone);
+        }
 
-        return $dateTime;
+        return $datetime;
     }
 
     /**
@@ -61,13 +68,14 @@ class DateTime extends \DateTime
      * Attempts to create a new DateTime object using a given date value and the configured default
      * datetime format
      *
-     * @var string $date A formatted datetime string
+     * @param string $datetime
+     * @param \DateTimeZone|null $timezone
      *
      * @return \Orkestra\Common\Type\DateTime
      */
-    public static function createFromDefaultFormat($datetime)
+    public static function createFromDefaultFormat($datetime, $timezone = null)
     {
-        return self::createFromFormat(self::$defaultFormat, $datetime);
+        return self::createFromFormat(self::$defaultFormat, $datetime, $timezone);
     }
 
     /**
@@ -84,9 +92,9 @@ class DateTime extends \DateTime
     /**
      * Sets the default server timezone
      *
-     * @param \DateTimeZone $timezone
+     * @param \DateTimeZone|null $timezone
      */
-    public static function setServerTimezone(\DateTimeZone $timezone)
+    public static function setServerTimezone(\DateTimeZone $timezone = null)
     {
         self::$serverTimezone = $timezone;
     }
@@ -98,15 +106,19 @@ class DateTime extends \DateTime
      */
     public static function getServerTimezone()
     {
+        if (!self::$serverTimezone) {
+            self::$serverTimezone = new \DateTimeZone(date_default_timezone_get());
+        }
+
         return self::$serverTimezone;
     }
 
     /**
      * Sets the user's local timezone
      *
-     * @param \DateTimeZone $timezone
+     * @param \DateTimeZone|null $timezone
      */
-    public static function setUserTimezone(\DateTimeZone $timezone)
+    public static function setUserTimezone(\DateTimeZone $timezone = null)
     {
         self::$localTimezone = $timezone;
     }
@@ -118,6 +130,10 @@ class DateTime extends \DateTime
      */
     public static function getUserTimezone()
     {
+        if (!self::$localTimezone) {
+            self::$localTimezone = new \DateTimeZone(date_default_timezone_get());
+        }
+
         return self::$localTimezone;
     }
 
@@ -150,12 +166,11 @@ class DateTime extends \DateTime
     public function __construct($time = 'now', DateTimeZone $timezone = null)
     {
         if (null === $timezone) {
-            $timezone = self::$serverTimezone;
+            $timezone = self::getServerTimezone();
         }
 
         parent::__construct($time, $timezone);
     }
-
 
     /**
      * To String
@@ -176,12 +191,7 @@ class DateTime extends \DateTime
      */
     public function toServerTime()
     {
-        if (!$this->isServerTime) {
-            $this->setTimezone(self::$serverTimezone);
-            $this->isServerTime = true;
-        }
-
-        return $this;
+        return $this->setTimezone(self::$serverTimezone);
     }
 
     /**
@@ -191,11 +201,6 @@ class DateTime extends \DateTime
      */
     public function toUserTime()
     {
-        if ($this->isServerTime) {
-            $this->setTimezone(self::$localTimezone);
-            $this->isServerTime = false;
-        }
-
-        return $this;
+        return $this->setTimezone(self::$localTimezone);
     }
 }
