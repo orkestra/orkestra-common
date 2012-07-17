@@ -2,10 +2,7 @@
 
 namespace Orkestra\Common\Tests\Cryptography;
 
-require __DIR__ . '/../../../../bootstrap.php';
-
-use Orkestra\Common\Tests\TestCase,
-    Orkestra\Common\Cryptography\Encryptor;
+use Orkestra\Common\Cryptography\Encryptor;
 
 /**
  * Encryptor Test
@@ -15,7 +12,7 @@ use Orkestra\Common\Tests\TestCase,
  * @group orkestra
  * @group common
  */
-class EncryptorTest extends TestCase
+class EncryptorTest extends \PHPUnit_Framework_TestCase
 {
     public function testEncryptor()
     {

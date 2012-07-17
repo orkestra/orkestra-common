@@ -2,10 +2,6 @@
 
 namespace Orkestra\Common\Tests\Subscriber;
 
-require __DIR__ . '/../../../../bootstrap.php';
-
-use Orkestra\Common\Tests\TestCase;
-
 use Doctrine\ORM\Events,
     Doctrine\ORM\Event\LifecycleEventArgs;
 
@@ -18,7 +14,7 @@ use Orkestra\Common\Entity\EntityBase,
  * @group orkestra
  * @group common
  */
-class LifecycleEventSubscriberTest extends TestCase
+class LifecycleEventSubscriberTest extends \PHPUnit_Framework_TestCase
 {
     public function testPrePersist()
     {

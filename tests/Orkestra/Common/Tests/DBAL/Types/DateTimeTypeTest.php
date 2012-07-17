@@ -2,7 +2,7 @@
 
 namespace Orkestra\Common\Tests\DBAL\Types;
 
-require __DIR__ . '/../../../../../bootstrap.php';
+require_once __DIR__ . '/../../TestCase.php';
 
 use Doctrine\DBAL\Types\Type;
 
