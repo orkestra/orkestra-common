@@ -46,12 +46,12 @@ abstract class EntityBase implements IEntity
      * @ORM\Column(name="date_created", type="datetime")
      */
     protected $dateCreated;
-    
+
     /**
      * @var array An array of bound event listeners
      */
     protected $_listeners = array();
-    
+
     /**
      * To String
      *
@@ -61,7 +61,7 @@ abstract class EntityBase implements IEntity
     {
         return sprintf('%s:%s', get_class($this), spl_object_hash($this));
     }
-        
+
     /**
      * Get ID
      *
@@ -91,7 +91,7 @@ abstract class EntityBase implements IEntity
     {
         return $this->active;
     }
-    
+
     /**
      * Is Active
      *
@@ -112,7 +112,7 @@ abstract class EntityBase implements IEntity
         if (empty($this->dateCreated)) {
             $this->dateCreated = new NullDateTime();
         }
-        
+
         return $this->dateCreated;
     }
 
@@ -126,12 +126,12 @@ abstract class EntityBase implements IEntity
         if (empty($this->dateModified)) {
             $this->dateModified = new NullDateTime();
         }
-        
+
         return $this->dateModified;
     }
 
     /**
-     * @ORM\prePersist
+     * @ORM\PrePersist
      */
     public function prePersist()
     {
@@ -139,7 +139,7 @@ abstract class EntityBase implements IEntity
     }
 
     /**
-     * @ORM\preUpdate
+     * @ORM\PreUpdate
      */
     public function preUpdate()
     {
@@ -149,13 +149,13 @@ abstract class EntityBase implements IEntity
     /**
      * {@inheritdoc}
      *
-     * @ORM\prePersist
-	 * @ORM\preUpdate
+     * @ORM\PrePersist
+	 * @ORM\PreUpdate
      */
     public function validate()
     {
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -163,7 +163,7 @@ abstract class EntityBase implements IEntity
     {
         $this->_listeners[$event][] = $callback;
     }
-    
+
     /**
      * {@inheritdoc}
      */
