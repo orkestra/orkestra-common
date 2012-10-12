@@ -16,6 +16,18 @@ use Symfony\Component\HttpFoundation\Request,
  */
 class HttpKernel extends KernelBase
 {
+    private $caBundlePath;
+
+    /**
+     * Sets the path to the Certificate Authority Bundle file
+     *
+     * @param string $path
+     */
+    public function setCaBundlePath($path)
+    {
+        $this->caBundlePath = $path;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -30,6 +42,12 @@ class HttpKernel extends KernelBase
             curl_setopt($ch, CURLOPT_POST, true);
         } elseif ($request->getMethod() != 'GET') {
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $request->getMethod());
+        }
+
+        if (!empty($this->caBundlePath)) {
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+            curl_setopt($ch, CURLOPT_CAINFO, $this->caBundlePath);
+            curl_setopt($ch, CURLOPT_SSLVERSION, 3);
         }
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
