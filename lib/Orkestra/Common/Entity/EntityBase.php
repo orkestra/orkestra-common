@@ -15,7 +15,7 @@ use Orkestra\Common\Type\DateTime,
  * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
  */
-abstract class EntityBase implements IEntity
+abstract class EntityBase implements EntityInterface
 {
     /**
      * @var integer $id
