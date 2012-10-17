@@ -12,7 +12,7 @@ use Orkestra\Common\Type\DateTime,
  *
  * Base class for all entities
  *
- * @ORM\MappedSuperClass
+ * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
  */
 abstract class EntityBase implements IEntity
@@ -34,23 +34,18 @@ abstract class EntityBase implements IEntity
     protected $active = true;
 
     /**
-     * @var Orkestra\Common\Type\DateTime $dateModified
+     * @var \DateTime $dateModified
      *
      * @ORM\Column(name="date_modified", type="datetime", nullable=true)
      */
     protected $dateModified;
 
     /**
-     * @var Orkestra\Common\Type\DateTime $dateCreated
+     * @var \DateTime $dateCreated
      *
      * @ORM\Column(name="date_created", type="datetime")
      */
     protected $dateCreated;
-
-    /**
-     * @var array An array of bound event listeners
-     */
-    protected $_listeners = array();
 
     /**
      * To String
@@ -105,7 +100,7 @@ abstract class EntityBase implements IEntity
     /**
      * Get Date Created
      *
-     * @return Orkestra\Common\Type\DateTime
+     * @return \DateTime
      */
     public function getDateCreated()
     {
@@ -119,7 +114,7 @@ abstract class EntityBase implements IEntity
     /**
      * Get Date Modified
      *
-     * @return Orkestra\Common\Type\DateTime
+     * @return \DateTime
      */
     public function getDateModified()
     {
@@ -154,21 +149,5 @@ abstract class EntityBase implements IEntity
      */
     public function validate()
     {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addListener($event, $callback)
-    {
-        $this->_listeners[$event][] = $callback;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getListeners($event)
-    {
-        return empty($this->_listeners[$event]) ? array() : $this->_listeners[$event];
     }
 }
