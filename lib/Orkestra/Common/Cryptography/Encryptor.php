@@ -93,9 +93,11 @@ class Encryptor
      */
     public function encrypt($message, $key, $iv)
     {
-        mcrypt_generic_init($this->_module, $key, $iv);
-        $message = mcrypt_generic($this->_module, $message);
-        mcrypt_generic_deinit($this->_module);
+        if (!empty($message)) {
+            mcrypt_generic_init($this->_module, $key, $iv);
+            $message = mcrypt_generic($this->_module, $message);
+            mcrypt_generic_deinit($this->_module);
+        }
 
         return $message;
     }
@@ -111,9 +113,11 @@ class Encryptor
      */
     public function decrypt($message, $key, $iv)
     {
-        mcrypt_generic_init($this->_module, $key, $iv);
-        $message = mdecrypt_generic($this->_module, $message);
-        mcrypt_generic_deinit($this->_module);
+        if (!empty($message)) {
+            mcrypt_generic_init($this->_module, $key, $iv);
+            $message = mdecrypt_generic($this->_module, $message);
+            mcrypt_generic_deinit($this->_module);
+        }
 
         return rtrim($message, "\0");
     }

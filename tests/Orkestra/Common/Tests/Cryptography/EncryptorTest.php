@@ -26,4 +26,17 @@ class EncryptorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('This is a message', $decrypted);
     }
+
+    public function testEmptyString()
+    {
+        $encryptor = new Encryptor();
+
+        $iv = $encryptor->createIv();
+
+        $encrypted = $encryptor->encrypt('', 'abc123', $iv);
+
+        $decrypted = $encryptor->decrypt($encrypted, 'abc123', $iv);
+
+        $this->assertEquals('', $decrypted);
+    }
 }
