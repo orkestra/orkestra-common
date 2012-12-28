@@ -78,9 +78,9 @@ class Daemon
 
         do {
             // Spawn a new worker if necessary
-            if ($this->_hasMoreWork() && count($this->pids) < $this->maxChildren) {
+            if ($this->hasMoreWork() && count($this->pids) < $this->maxChildren) {
                 $pid = pcntl_fork();
-                list($worker, $arguments) = $this->_getNextWorker();
+                list($worker, $arguments) = $this->getNextWorker();
 
                 if (!$pid) {
                     // New worker process
@@ -140,7 +140,7 @@ class Daemon
      *
      * @return bool
      */
-    protected function _hasMoreWork()
+    protected function hasMoreWork()
     {
         return count($this->workers) > 0;
     }
@@ -150,9 +150,9 @@ class Daemon
      *
      * @return array|null Array of command, arguments or null if no more workers
      */
-    protected function _getNextWorker()
+    protected function getNextWorker()
     {
-        return $this->_hasMoreWork() ? array_shift($this->workers) : null;
+        return $this->hasMoreWork() ? array_shift($this->workers) : null;
     }
 
     /**

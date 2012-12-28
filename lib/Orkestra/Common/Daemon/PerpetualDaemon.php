@@ -47,7 +47,7 @@ class PerpetualDaemon extends Daemon
     /**
      * @return bool
      */
-    protected function _hasMoreWork()
+    protected function hasMoreWork()
     {
         return true;
     }
@@ -55,9 +55,8 @@ class PerpetualDaemon extends Daemon
     /**
      * @return array|null
      */
-    protected function _getNextWorker()
+    protected function getNextWorker()
     {
         return $this->workers[0];
     }
-
 }
