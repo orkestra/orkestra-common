@@ -2,19 +2,19 @@
 
 namespace Orkestra\Common\Tests\Entity;
 
-use Orkestra\Common\Entity\EntityBase,
+use Orkestra\Common\Entity\AbstractEntity,
     Orkestra\Common\Type\DateTime;
 
 /**
- * EntityBase Test
+ * AbstractEntity Test
  *
- * Tests the functionality provided by the EntityBase
+ * Tests the functionality provided by the AbstractEntity
  */
 class EntityBaseTest extends \PHPUnit_Framework_TestCase
 {
     public function testPrePersistSetsDateCreated()
     {
-        $entity = $this->getMockForAbstractClass('Orkestra\Common\Entity\EntityBase');
+        $entity = $this->getMockForAbstractClass('Orkestra\Common\Entity\AbstractEntity');
 
         $this->assertInstanceOf('Orkestra\Common\Type\NullDateTime', $entity->getDateCreated());
 
@@ -25,7 +25,7 @@ class EntityBaseTest extends \PHPUnit_Framework_TestCase
 
     public function testPreUpdateSetsDateModified()
     {
-        $entity = $this->getMockForAbstractClass('Orkestra\Common\Entity\EntityBase');
+        $entity = $this->getMockForAbstractClass('Orkestra\Common\Entity\AbstractEntity');
 
         $this->assertInstanceOf('Orkestra\Common\Type\NullDateTime', $entity->getDateModified());
 
@@ -36,7 +36,7 @@ class EntityBaseTest extends \PHPUnit_Framework_TestCase
 
     public function testToString()
     {
-        $entity = $this->getMockForAbstractClass('Orkestra\Common\Entity\EntityBase');
+        $entity = $this->getMockForAbstractClass('Orkestra\Common\Entity\AbstractEntity');
 
         $signature = get_class($entity) . ':' . spl_object_hash($entity);
 

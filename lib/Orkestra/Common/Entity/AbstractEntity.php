@@ -3,19 +3,16 @@
 namespace Orkestra\Common\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
-use Orkestra\Common\Type\DateTime,
-    Orkestra\Common\Type\NullDateTime;
+use Orkestra\Common\Type\DateTime;
+use Orkestra\Common\Type\NullDateTime;
 
 /**
- * Entity Base
- *
- * Base class for all entities
+ * Base class for any entity
  *
  * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
  */
-abstract class EntityBase implements EntityInterface
+abstract class AbstractEntity
 {
     /**
      * @var integer $id
@@ -48,8 +45,6 @@ abstract class EntityBase implements EntityInterface
     protected $dateCreated;
 
     /**
-     * To String
-     *
      * @return string
      */
     public function __toString()
@@ -139,15 +134,5 @@ abstract class EntityBase implements EntityInterface
     public function preUpdate()
     {
         $this->dateModified = new DateTime();
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function validate()
-    {
     }
 }
