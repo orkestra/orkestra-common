@@ -4,9 +4,7 @@ namespace Orkestra\Common\DBAL\Types;
 
 use Doctrine\DBAL\Types\StringType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Types\ConversionException;
 use Orkestra\Common\Cryptography\Encryptor;
-
 
 /**
  * Encrypted Type
@@ -18,25 +16,25 @@ class EncryptedStringType extends StringType
     /**
      * @var \Orkestra\Common\Cryptography\Encryptor
      */
-    protected $_encryptor;
+    protected $encryptor;
 
     /**
      * @var string
      */
-    protected $_key;
+    protected $key;
 
     public function setKey($key)
     {
-        $this->_key = $key;
+        $this->key = $key;
     }
 
     private function _getEncryptor()
     {
-        if (!$this->_encryptor) {
-            $this->_encryptor = new Encryptor();
+        if (!$this->encryptor) {
+            $this->encryptor = new Encryptor();
         }
 
-        return $this->_encryptor;
+        return $this->encryptor;
     }
 
     /**
@@ -52,7 +50,7 @@ class EncryptedStringType extends StringType
 
         $iv = $encryptor->createIv();
 
-        return base64_encode($iv . $encryptor->encrypt($value, $this->_key, $iv));
+        return base64_encode($iv . $encryptor->encrypt($value, $this->key, $iv));
     }
 
     /**
@@ -73,6 +71,6 @@ class EncryptedStringType extends StringType
         $iv = substr($value, 0, $len);
         $value = substr($value, $len);
 
-        return $encryptor->decrypt($value, $this->_key, $iv);
+        return $encryptor->decrypt($value, $this->key, $iv);
     }
 }

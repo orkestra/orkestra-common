@@ -23,8 +23,7 @@ class TimeType extends TimeTypeBase
     {
         if ($value instanceof NullDateTime || $value === null) {
             return null;
-        }
-        else if (!$value instanceof DateTime) {
+        } elseif (!$value instanceof DateTime) {
             return $value->format($platform->getTimeFormatString());
         }
 

@@ -30,8 +30,8 @@ class DateTime extends \DateTime
     /**
      * Create From Format
      *
-     * @param string $format
-     * @param string $time
+     * @param string             $format
+     * @param string             $time
      * @param \DateTimeZone|null $timezone
      *
      * @throws \Orkestra\Common\Exception\TypeException
@@ -68,7 +68,7 @@ class DateTime extends \DateTime
      * Attempts to create a new DateTime object using a given date value and the configured default
      * datetime format
      *
-     * @param string $datetime
+     * @param string             $datetime
      * @param \DateTimeZone|null $timezone
      *
      * @return \Orkestra\Common\Type\DateTime
@@ -81,7 +81,7 @@ class DateTime extends \DateTime
     /**
      * Converts a PHP format string to Javascript format
      *
-     * @param string $format
+     * @param  string $format
      * @return string
      */
     public static function toJsFormat($format)
@@ -160,7 +160,7 @@ class DateTime extends \DateTime
     /**
      * Constructor
      *
-     * @param string $time
+     * @param string             $time
      * @param \DateTimeZone|null $timezone
      */
     public function __construct($time = 'now', DateTimeZone $timezone = null)

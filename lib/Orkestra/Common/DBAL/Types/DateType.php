@@ -5,7 +5,7 @@ namespace Orkestra\Common\DBAL\Types;
 use Doctrine\DBAL\Types\DateType as DateTypeBase,
     Doctrine\DBAL\Platforms\AbstractPlatform,
     Doctrine\DBAL\Types\ConversionException;
-    
+
 use Orkestra\Common\Type\Date,
     Orkestra\Common\Type\DateTime,
     Orkestra\Common\Type\NullDateTime;
@@ -25,10 +25,10 @@ class DateType extends DateTypeBase
         if ($value instanceof NullDateTime || $value === null) {
             return null;
         }
-        
+
         return $value->format($platform->getDateFormatString());
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -42,7 +42,7 @@ class DateType extends DateTypeBase
         if (!$val) {
             throw ConversionException::conversionFailedFormat($value, $this->getName(), $platform->getDateFormatString());
         }
-        
+
         return $val;
     }
 }

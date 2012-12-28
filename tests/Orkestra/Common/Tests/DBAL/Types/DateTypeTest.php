@@ -20,25 +20,25 @@ use Orkestra\Common\Tests\TestCase,
  */
 class DateTypeTest extends TestCase
 {
-    protected $_typesMap;
+    protected $typesMap;
 
-    protected $_dateType;
+    protected $dateType;
 
-    protected $_platform;
+    protected $platform;
 
     protected function setUp()
     {
         parent::setUp();
 
-        $this->_typesMap = Type::getTypesMap();
+        $this->typesMap = Type::getTypesMap();
 
         $this->setStaticProperty('Doctrine\DBAL\Types\Type', '_typeObjects', array());
         Type::overrideType('date', 'Orkestra\Common\DBAL\Types\DateType');
 
-        $this->_dateType = Type::getType('date');
+        $this->dateType = Type::getType('date');
 
-        $this->_platform = $this->getMockForAbstractClass('Doctrine\DBAL\Platforms\AbstractPlatform');
-        $this->_platform->expects($this->any())
+        $this->platform = $this->getMockForAbstractClass('Doctrine\DBAL\Platforms\AbstractPlatform');
+        $this->platform->expects($this->any())
                         ->method('getDateFormatString')
                         ->will($this->returnValue('Y-m-d'));
     }
@@ -47,7 +47,7 @@ class DateTypeTest extends TestCase
     {
         parent::tearDown();
 
-        $this->setStaticProperty('Doctrine\DBAL\Types\Type', '_typesMap', $this->_typesMap);
+        $this->setStaticProperty('Doctrine\DBAL\Types\Type', '_typesMap', $this->typesMap);
         $this->setStaticProperty('Doctrine\DBAL\Types\Type', '_typeObjects', array());
     }
 
@@ -55,28 +55,28 @@ class DateTypeTest extends TestCase
     {
         $date = Date::createFromFormat('Y-m-d', '2011-01-01');
 
-        $this->assertEquals('2011-01-01', $this->_dateType->convertToDatabaseValue($date, $this->_platform));
+        $this->assertEquals('2011-01-01', $this->dateType->convertToDatabaseValue($date, $this->platform));
     }
 
     public function testConvertToDatabaseWithNullReturnsNull()
     {
         $date = null;
 
-        $this->assertEquals(null, $this->_dateType->convertToDatabaseValue($date, $this->_platform));
+        $this->assertEquals(null, $this->dateType->convertToDatabaseValue($date, $this->platform));
     }
 
     public function testConvertToDatabaseWithNullDateTimeReturnsNull()
     {
         $date = new NullDateTime();
 
-        $this->assertEquals(null, $this->_dateType->convertToDatabaseValue($date, $this->_platform));
+        $this->assertEquals(null, $this->dateType->convertToDatabaseValue($date, $this->platform));
     }
 
     public function testConvertToPhpValueReturnsDate()
     {
         $date = '2011-01-01';
 
-        $date = $this->_dateType->convertToPHPValue($date, $this->_platform);
+        $date = $this->dateType->convertToPHPValue($date, $this->platform);
 
         $this->assertInstanceOf('Orkestra\Common\Type\Date', $date);
     }
@@ -85,7 +85,7 @@ class DateTypeTest extends TestCase
     {
         $date = null;
 
-        $date = $this->_dateType->convertToPHPValue($date, $this->_platform);
+        $date = $this->dateType->convertToPHPValue($date, $this->platform);
 
         $this->assertInstanceOf('Orkestra\Common\Type\NullDateTime', $date);
     }

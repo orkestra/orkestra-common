@@ -20,25 +20,25 @@ use Orkestra\Common\Tests\TestCase,
  */
 class DateTimeTypeTest extends TestCase
 {
-    protected $_typesMap;
+    protected $typesMap;
 
-    protected $_dateTimeType;
+    protected $dateTimeType;
 
-    protected $_platform;
+    protected $platform;
 
     protected function setUp()
     {
         parent::setUp();
 
-        $this->_typesMap = Type::getTypesMap();
+        $this->typesMap = Type::getTypesMap();
 
         $this->setStaticProperty('Doctrine\DBAL\Types\Type', '_typeObjects', array());
         Type::overrideType('datetime', 'Orkestra\Common\DBAL\Types\DateTimeType');
 
-        $this->_dateTimeType = Type::getType('datetime');
+        $this->dateTimeType = Type::getType('datetime');
 
-        $this->_platform = $this->getMockForAbstractClass('Doctrine\DBAL\Platforms\AbstractPlatform');
-        $this->_platform->expects($this->any())
+        $this->platform = $this->getMockForAbstractClass('Doctrine\DBAL\Platforms\AbstractPlatform');
+        $this->platform->expects($this->any())
                         ->method('getDateTimeFormatString')
                         ->will($this->returnValue('Y-m-d'));
 
@@ -51,13 +51,13 @@ class DateTimeTypeTest extends TestCase
     {
         parent::tearDown();
 
-        $this->setStaticProperty('Doctrine\DBAL\Types\Type', '_typesMap', $this->_typesMap);
+        $this->setStaticProperty('Doctrine\DBAL\Types\Type', '_typesMap', $this->typesMap);
         $this->setStaticProperty('Doctrine\DBAL\Types\Type', '_typeObjects', array());
     }
 
     public function testConvertToDatabaseReturnsServerTime()
     {
-        $this->assertInstanceOf('Orkestra\Common\DBAL\Types\DateTimeType', $this->_dateTimeType);
+        $this->assertInstanceOf('Orkestra\Common\DBAL\Types\DateTimeType', $this->dateTimeType);
 
         $datetime = DateTime::createFromFormat('Y-m-d H:i:s', '2011-01-01 08:30:00');
 
@@ -65,27 +65,27 @@ class DateTimeTypeTest extends TestCase
         $datetime->toUserTime();
         $this->assertEquals('2011-01-01 01:30:00', $datetime->format('Y-m-d H:i:s'));
 
-        $this->assertEquals('2011-01-01 08:30:00', $this->_dateTimeType->convertToDatabaseValue($datetime, $this->_platform));
+        $this->assertEquals('2011-01-01 08:30:00', $this->dateTimeType->convertToDatabaseValue($datetime, $this->platform));
     }
 
     public function testConvertToDatabaseWithNullReturnsNull()
     {
         $datetime = null;
 
-        $this->assertEquals(null, $this->_dateTimeType->convertToDatabaseValue($datetime, $this->_platform));
+        $this->assertEquals(null, $this->dateTimeType->convertToDatabaseValue($datetime, $this->platform));
     }
 
     public function testConvertToDatabaseWithNullDateTimeReturnsNull()
     {
         $datetime = new NullDateTime();
-        $this->assertEquals(null, $this->_dateTimeType->convertToDatabaseValue($datetime, $this->_platform));
+        $this->assertEquals(null, $this->dateTimeType->convertToDatabaseValue($datetime, $this->platform));
     }
 
     public function testConvertToPhpValueReturnsDateTime()
     {
         $date = '2011-01-01 12:00:00';
 
-        $datetime = $this->_dateTimeType->convertToPHPValue($date, $this->_platform);
+        $datetime = $this->dateTimeType->convertToPHPValue($date, $this->platform);
 
         $this->assertInstanceOf('Orkestra\Common\Type\DateTime', $datetime);
     }
@@ -94,7 +94,7 @@ class DateTimeTypeTest extends TestCase
     {
         $date = null;
 
-        $datetime = $this->_dateTimeType->convertToPHPValue($date, $this->_platform);
+        $datetime = $this->dateTimeType->convertToPHPValue($date, $this->platform);
 
         $this->assertInstanceOf('Orkestra\Common\Type\NullDateTime', $datetime);
     }

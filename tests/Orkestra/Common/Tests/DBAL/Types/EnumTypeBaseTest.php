@@ -7,8 +7,8 @@ use Doctrine\DBAL\Types\Type;
 require_once __DIR__ . '/../../TestCase.php';
 
 use Orkestra\Common\Tests\TestCase,
-	Orkestra\Common\Type\Enum,
-	Orkestra\Common\DBAL\Types\EnumTypeBase;
+    Orkestra\Common\Type\Enum,
+    Orkestra\Common\DBAL\Types\EnumTypeBase;
 
 /**
  * EnumTypeBase Test
@@ -20,48 +20,48 @@ use Orkestra\Common\Tests\TestCase,
  */
 class EnumTypeBaseTest extends TestCase
 {
-    protected $_typesMap;
+    protected $typesMap;
 
-    protected $_enumType;
+    protected $enumType;
 
-    protected $_platform;
+    protected $platform;
 
     protected function setUp()
     {
         parent::setUp();
 
-        $this->_typesMap = Type::getTypesMap();
+        $this->typesMap = Type::getTypesMap();
 
         $this->setStaticProperty('Doctrine\DBAL\Types\Type', '_typeObjects', array());
         Type::addType('enum.test', 'Orkestra\Common\Tests\DBAL\Types\TestEnumEnumType');
 
-        $this->_enumType = Type::getType('enum.test');
+        $this->enumType = Type::getType('enum.test');
 
-        $this->_platform = $this->getMockForAbstractClass('Doctrine\DBAL\Platforms\AbstractPlatform');
+        $this->platform = $this->getMockForAbstractClass('Doctrine\DBAL\Platforms\AbstractPlatform');
     }
 
     protected function tearDown()
     {
         parent::tearDown();
 
-        $this->setStaticProperty('Doctrine\DBAL\Types\Type', '_typesMap', $this->_typesMap);
+        $this->setStaticProperty('Doctrine\DBAL\Types\Type', '_typesMap', $this->typesMap);
         $this->setStaticProperty('Doctrine\DBAL\Types\Type', '_typeObjects', array());
     }
 
     public function testConvertToDatabaseReturnsString()
     {
-        $this->assertInstanceOf('Orkestra\Common\Tests\DBAL\Types\TestEnumEnumType', $this->_enumType);
+        $this->assertInstanceOf('Orkestra\Common\Tests\DBAL\Types\TestEnumEnumType', $this->enumType);
 
         $enum = new TestEnum(TestEnum::Value);
 
-        $this->assertEquals('Value', $this->_enumType->convertToDatabaseValue($enum, $this->_platform));
+        $this->assertEquals('Value', $this->enumType->convertToDatabaseValue($enum, $this->platform));
     }
 
     public function testConvertToPhpValueReturnsEnum()
     {
         $value = 'Value';
 
-        $enum = $this->_enumType->convertToPHPValue($value, $this->_platform);
+        $enum = $this->enumType->convertToPHPValue($value, $this->platform);
 
         $this->assertInstanceOf('Orkestra\Common\Tests\DBAL\Types\TestEnum', $enum);
         $this->assertEquals('Value', $enum->getValue());
@@ -71,7 +71,7 @@ class EnumTypeBaseTest extends TestCase
     {
         $value = null;
 
-        $enum = $this->_enumType->convertToPHPValue($value, $this->_platform);
+        $enum = $this->enumType->convertToPHPValue($value, $this->platform);
 
         $this->assertNull($enum);
     }
@@ -80,7 +80,7 @@ class EnumTypeBaseTest extends TestCase
     {
         $value = '';
 
-        $enum = $this->_enumType->convertToPHPValue($value, $this->_platform);
+        $enum = $this->enumType->convertToPHPValue($value, $this->platform);
 
         $this->assertNull($enum);
     }
@@ -91,14 +91,14 @@ class EnumTypeBaseTest extends TestCase
 
         $value = 'Invalid Value';
 
-        $enum = $this->_enumType->convertToPHPValue($value, $this->_platform);
+        $enum = $this->enumType->convertToPHPValue($value, $this->platform);
     }
 }
 
 class TestEnumEnumType extends EnumTypeBase
 {
-    protected $_name = 'test.enum';
-    protected $_class = 'Orkestra\Common\Tests\DBAL\Types\TestEnum';
+    protected $name = 'test.enum';
+    protected $class = 'Orkestra\Common\Tests\DBAL\Types\TestEnum';
 }
 
 class TestEnum extends Enum

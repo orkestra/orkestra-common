@@ -22,18 +22,18 @@ class Date extends \DateTime
     public static function createFromFormat($format, $time, $timezone = null)
     {
         $parent = parent::createFromFormat($format, $time);
-        
+
         if (empty($parent)) {
             throw new TypeException('Could not create Date from the given format');
         }
-        
+
         $timestamp = $parent->getTimestamp();
         $date = new self();
         $date->setTimestamp($timestamp);
 
         return $date;
     }
-    
+
     /**
      * Create From Default Format
      *
@@ -46,15 +46,15 @@ class Date extends \DateTime
     public static function createFromDefaultFormat($date)
     {
         $parent = parent::createFromFormat(self::$defaultFormat, $date);
-        
+
         if (empty($parent)) {
             throw new TypeException('Could not create Date from the given format');
         }
-        
+
         $timestamp = $parent->getTimestamp();
         $date = new self();
         $date->setTimestamp($timestamp);
-        
+
         return $date;
     }
 

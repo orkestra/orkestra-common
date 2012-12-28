@@ -10,7 +10,7 @@ use Doctrine\DBAL\Types\StringType,
  * Base class for enumeration types
  *
  * Adds support for Enums in Doctrine's DBAL. Extend this class
- * and specify the $_name and $_class properties, then register
+ * and specify the $name and $class properties, then register
  * your new type with Doctrine\DBAL\Types\Type
  */
 abstract class EnumTypeBase extends StringType
@@ -18,31 +18,30 @@ abstract class EnumTypeBase extends StringType
     /**
      * @var string A unique name for this enum type
      */
-    protected $_name;
-    
+    protected $name;
+
     /**
      * @var string The fully qualified class name of the Enum that this class wraps
      */
-    protected $_class;
+    protected $class;
 
     /**
      * {@inheritdoc}
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
-        $class = $this->_class;
-        
+        $class = $this->class;
+
         if ($value === null || $value === '') {
             return null;
         }
-        
+
         try {
             $value = new $class($value);
-        }
-        catch (\InvalidArgumentException $e) {
+        } catch (\InvalidArgumentException $e) {
             throw ConversionException::conversionFailed($value, $this->getName());
         }
-        
+
         return $value;
     }
 
@@ -51,7 +50,7 @@ abstract class EnumTypeBase extends StringType
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        return (string)$value;
+        return (string) $value;
     }
 
     /**
@@ -59,6 +58,6 @@ abstract class EnumTypeBase extends StringType
      */
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
     }
 }

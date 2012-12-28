@@ -16,7 +16,7 @@ class PerpetualDaemon extends Daemon
      */
     public function execute()
     {
-        if (empty($this->_workers)) {
+        if (empty($this->workers)) {
             throw new \RuntimeException('The PerpetualDaemon must be assigned work before it can be executed');
         }
 
@@ -37,7 +37,7 @@ class PerpetualDaemon extends Daemon
      */
     public function addWorker($worker, $arguments = array())
     {
-        if (!empty($this->_workers)) {
+        if (!empty($this->workers)) {
             throw new \RuntimeException('The PerpetualDaemon may only be assigned one worker');
         }
 
@@ -57,7 +57,7 @@ class PerpetualDaemon extends Daemon
      */
     protected function _getNextWorker()
     {
-        return $this->_workers[0];
+        return $this->workers[0];
     }
 
 }

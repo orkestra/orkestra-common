@@ -12,7 +12,8 @@ class NullDateTime extends DateTime
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 

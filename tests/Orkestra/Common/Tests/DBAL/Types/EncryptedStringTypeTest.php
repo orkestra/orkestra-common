@@ -19,45 +19,45 @@ use Doctrine\DBAL\Types\Type;
  */
 class EncryptedStringTypeTest extends TestCase
 {
-    protected $_typesMap;
+    protected $typesMap;
 
-    protected $_type;
+    protected $type;
 
-    protected $_platform;
+    protected $platform;
 
     protected function setUp()
     {
         parent::setUp();
 
-        $this->_typesMap = Type::getTypesMap();
+        $this->typesMap = Type::getTypesMap();
 
         $this->setStaticProperty('Doctrine\DBAL\Types\Type', '_typeObjects', array());
         Type::addType('encrypted_string', 'Orkestra\Common\DBAL\Types\EncryptedStringType');
 
-        $this->_type = Type::getType('encrypted_string');
+        $this->type = Type::getType('encrypted_string');
 
-        $this->_platform = $this->getMockForAbstractClass('Doctrine\DBAL\Platforms\AbstractPlatform');
+        $this->platform = $this->getMockForAbstractClass('Doctrine\DBAL\Platforms\AbstractPlatform');
     }
 
     protected function tearDown()
     {
         parent::tearDown();
 
-        $this->setStaticProperty('Doctrine\DBAL\Types\Type', '_typesMap', $this->_typesMap);
+        $this->setStaticProperty('Doctrine\DBAL\Types\Type', '_typesMap', $this->typesMap);
         $this->setStaticProperty('Doctrine\DBAL\Types\Type', '_typeObjects', array());
     }
 
     public function testConversion()
     {
-        $this->assertInstanceOf('Orkestra\Common\DBAL\Types\EncryptedStringType', $this->_type);
+        $this->assertInstanceOf('Orkestra\Common\DBAL\Types\EncryptedStringType', $this->type);
 
-        $this->_type->setKey('key');
+        $this->type->setKey('key');
 
         $value = 'This is a test';
 
-        $encryptedValue = $this->_type->convertToDatabaseValue($value, $this->_platform);
+        $encryptedValue = $this->type->convertToDatabaseValue($value, $this->platform);
 
-        $decryptedValue = $this->_type->convertToPHPValue($encryptedValue, $this->_platform);
+        $decryptedValue = $this->type->convertToPHPValue($encryptedValue, $this->platform);
 
         $this->assertEquals($value, $decryptedValue);
     }

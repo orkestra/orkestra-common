@@ -67,7 +67,7 @@ abstract class EntityBase implements EntityInterface
         return $this->id;
     }
 
-	/**
+    /**
      * Set Active
      *
      * @param boolean
@@ -145,7 +145,7 @@ abstract class EntityBase implements EntityInterface
      * {@inheritdoc}
      *
      * @ORM\PrePersist
-	 * @ORM\PreUpdate
+     * @ORM\PreUpdate
      */
     public function validate()
     {

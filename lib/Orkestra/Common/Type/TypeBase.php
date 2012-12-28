@@ -12,8 +12,8 @@ abstract class TypeBase
     /**
      * @var mixed The underlying value of this type
      */
-    protected $_value;
-    
+    protected $value;
+
     /**
      * Constructor
      *
@@ -21,9 +21,9 @@ abstract class TypeBase
      */
     public function __construct($value)
     {
-        $this->_setValue($value);
+        $this->setValue($value);
     }
-    
+
     /**
      * Set Value
      *
@@ -31,22 +31,22 @@ abstract class TypeBase
      *
      * @return void
      */
-    protected function _setValue($value)
+    protected function setValue($value)
     {
-        if (!$this->_validate($value)) {
+        if (!$this->validate($value)) {
             throw new \InvalidArgumentException(sprintf('%s is not a valid value', $value));
         }
-        
-        $this->_value = $value;
+
+        $this->value = $value;
     }
-    
+
     /**
      * Validate
      *
      * Validates a given value and returns true or false based on the result
      *
-     * @param mixed $value
+     * @param  mixed   $value
      * @return boolean True if the value is valid
      */
-    abstract protected function _validate($value);
+    abstract protected function validate($value);
 }
