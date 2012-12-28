@@ -5,8 +5,6 @@ namespace Orkestra\Common\Type;
 use Orkestra\Common\Exception\TypeException;
 
 /**
- * Date
- *
  * Extends PHP's native DateTime class to allow representation of Date only values
  */
 class Date extends \DateTime
@@ -17,7 +15,12 @@ class Date extends \DateTime
     private static $defaultFormat;
 
     /**
-     * @return Orkestra\Common\Type\DateTim
+     * @param string $format
+     * @param string $time
+     * @param null   $timezone
+     *
+     * @throws \Orkestra\Common\Exception\TypeException
+     * @return \Orkestra\Common\Type\DateTime
      */
     public static function createFromFormat($format, $time, $timezone = null)
     {
@@ -41,7 +44,9 @@ class Date extends \DateTime
      * date format
      *
      * @var string $date A formatted date string
-     * @return Orkestra\Common\Type\Date
+     *
+     * @throws \Orkestra\Common\Exception\TypeException
+     * @return \Orkestra\Common\Type\Date
      */
     public static function createFromDefaultFormat($date)
     {
@@ -79,8 +84,6 @@ class Date extends \DateTime
     }
 
     /**
-     * To String
-     *
      * @return string
      */
     public function __toString()

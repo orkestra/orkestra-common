@@ -6,8 +6,6 @@ use Orkestra\Common\Exception\TypeException;
 use DateTimeZone;
 
 /**
- * DateTime
- *
  * Extends PHP's native DateTime to allow simplified conversion to and from user/server time
  */
 class DateTime extends \DateTime
@@ -173,8 +171,6 @@ class DateTime extends \DateTime
     }
 
     /**
-     * To String
-     *
      * Returns the DateTime in the user's timezone, using the configured default format
      *
      * @return string

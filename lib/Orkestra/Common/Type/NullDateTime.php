@@ -18,8 +18,6 @@ class NullDateTime extends DateTime
     }
 
     /**
-     * To String
-     *
      * @return string
      */
     public function __toString()
@@ -29,6 +27,8 @@ class NullDateTime extends DateTime
 
     /**
      * Overridden to disallow modification of a NullDateTime
+     *
+     * @param \DateInterval $interval
      *
      * @return \Orkestra\Common\Type\NullDateTime
      */
@@ -40,6 +40,9 @@ class NullDateTime extends DateTime
     /**
      * Overridden to disallow comparisons with a NullDateTime
      *
+     * @param \DateTime $datetime2
+     * @param bool $absolute
+     *
      * @return null
      */
     public function diff($datetime2, $absolute = false)
@@ -49,6 +52,8 @@ class NullDateTime extends DateTime
 
     /**
      * Overridden to return only null
+     *
+     * @param string $format
      *
      * @return null
      */
@@ -90,6 +95,8 @@ class NullDateTime extends DateTime
     /**
      * Overridden to disallow modification of a NullDateTime
      *
+     * @param string $modify
+     *
      * @return \Orkestra\Common\Type\NullDateTime
      */
     public function modify($modify)
@@ -99,6 +106,10 @@ class NullDateTime extends DateTime
 
     /**
      * Overridden to disallow modification of a NullDateTime
+     *
+     * @param int $year
+     * @param int $month
+     * @param int $day
      *
      * @return \Orkestra\Common\Type\NullDateTime
      */
@@ -110,6 +121,10 @@ class NullDateTime extends DateTime
     /**
      * Overridden to disallow modification of a NullDateTime
      *
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     *
      * @return \Orkestra\Common\Type\NullDateTime
      */
     public function setISODate($year, $month, $day = 1)
@@ -119,6 +134,10 @@ class NullDateTime extends DateTime
 
     /**
      * Overridden to disallow modification of a NullDateTime
+     *
+     * @param int $hour
+     * @param int $minute
+     * @param int $second
      *
      * @return \Orkestra\Common\Type\NullDateTime
      */
@@ -130,6 +149,8 @@ class NullDateTime extends DateTime
     /**
      * Overridden to disallow modification of a NullDateTime
      *
+     * @param int $unixtimestamp
+     *
      * @return \Orkestra\Common\Type\NullDateTime
      */
     public function setTimestamp($unixtimestamp)
@@ -139,6 +160,8 @@ class NullDateTime extends DateTime
 
     /**
      * Overridden to disallow modification of a NullDateTime
+     *
+     * @param \DateInterval $interval
      *
      * @return \Orkestra\Common\Type\NullDateTime
      */

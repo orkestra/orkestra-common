@@ -23,6 +23,8 @@ abstract class Enum
      * Constructor
      *
      * @param mixed $value A valid value
+     *
+     * @throws \InvalidArgumentException
      */
     public function __construct($value)
     {

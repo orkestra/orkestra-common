@@ -25,10 +25,11 @@ abstract class TypeBase
     }
 
     /**
-     * Set Value
-     *
      * Sets the value if it is valid
      *
+     * @param mixed $value
+     *
+     * @throws \InvalidArgumentException
      * @return void
      */
     protected function setValue($value)
@@ -41,8 +42,6 @@ abstract class TypeBase
     }
 
     /**
-     * Validate
-     *
      * Validates a given value and returns true or false based on the result
      *
      * @param  mixed   $value
