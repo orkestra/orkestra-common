@@ -4,7 +4,7 @@ namespace Orkestra\Common\Tests\DBAL\Types;
 
 use Orkestra\Common\Tests\TestCase;
 
-require_once __DIR__ . '/../../TestCase.php';
+require_once __DIR__ . '/../TestCase.php';
 
 use Doctrine\DBAL\Types\Type;
 
@@ -32,7 +32,7 @@ class EncryptedStringTypeTest extends TestCase
         $this->typesMap = Type::getTypesMap();
 
         $this->setStaticProperty('Doctrine\DBAL\Types\Type', '_typeObjects', array());
-        Type::addType('encrypted_string', 'Orkestra\Common\DBAL\Types\EncryptedStringType');
+        Type::addType('encrypted_string', 'Orkestra\Common\DbalType\EncryptedStringType');
 
         $this->type = Type::getType('encrypted_string');
 
@@ -49,7 +49,7 @@ class EncryptedStringTypeTest extends TestCase
 
     public function testConversion()
     {
-        $this->assertInstanceOf('Orkestra\Common\DBAL\Types\EncryptedStringType', $this->type);
+        $this->assertInstanceOf('Orkestra\Common\DbalType\EncryptedStringType', $this->type);
 
         $this->type->setKey('key');
 

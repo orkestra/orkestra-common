@@ -2,7 +2,7 @@
 
 namespace Orkestra\Common\Tests\DBAL\Types;
 
-require_once __DIR__ . '/../../TestCase.php';
+require_once __DIR__ . '/../TestCase.php';
 
 use Doctrine\DBAL\Types\Type;
 
@@ -33,7 +33,7 @@ class DateTypeTest extends TestCase
         $this->typesMap = Type::getTypesMap();
 
         $this->setStaticProperty('Doctrine\DBAL\Types\Type', '_typeObjects', array());
-        Type::overrideType('date', 'Orkestra\Common\DBAL\Types\DateType');
+        Type::overrideType('date', 'Orkestra\Common\DbalType\DateType');
 
         $this->dateType = Type::getType('date');
 

@@ -2,7 +2,7 @@
 
 namespace Orkestra\Common\Tests\DBAL\Types;
 
-require_once __DIR__ . '/../../TestCase.php';
+require_once __DIR__ . '/../TestCase.php';
 
 use Doctrine\DBAL\Types\Type;
 
@@ -33,7 +33,7 @@ class DateTimeTypeTest extends TestCase
         $this->typesMap = Type::getTypesMap();
 
         $this->setStaticProperty('Doctrine\DBAL\Types\Type', '_typeObjects', array());
-        Type::overrideType('datetime', 'Orkestra\Common\DBAL\Types\DateTimeType');
+        Type::overrideType('datetime', 'Orkestra\Common\DbalType\DateTimeType');
 
         $this->dateTimeType = Type::getType('datetime');
 
@@ -57,7 +57,7 @@ class DateTimeTypeTest extends TestCase
 
     public function testConvertToDatabaseReturnsServerTime()
     {
-        $this->assertInstanceOf('Orkestra\Common\DBAL\Types\DateTimeType', $this->dateTimeType);
+        $this->assertInstanceOf('Orkestra\Common\DbalType\DateTimeType', $this->dateTimeType);
 
         $datetime = DateTime::createFromFormat('Y-m-d H:i:s', '2011-01-01 08:30:00');
 

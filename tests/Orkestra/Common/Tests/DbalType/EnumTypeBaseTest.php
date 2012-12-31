@@ -4,11 +4,11 @@ namespace Orkestra\Common\Tests\DBAL\Types;
 
 use Doctrine\DBAL\Types\Type;
 
-require_once __DIR__ . '/../../TestCase.php';
+require_once __DIR__ . '/../TestCase.php';
 
 use Orkestra\Common\Tests\TestCase,
     Orkestra\Common\Type\Enum,
-    Orkestra\Common\DBAL\Types\EnumTypeBase;
+    Orkestra\Common\DbalType\EnumTypeBase;
 
 /**
  * EnumTypeBase Test

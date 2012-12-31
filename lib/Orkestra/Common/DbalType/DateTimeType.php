@@ -1,8 +1,8 @@
 <?php
 
-namespace Orkestra\Common\DBAL\Types;
+namespace Orkestra\Common\DbalType;
 
-use Doctrine\DBAL\Types\TimeType as TimeTypeBase,
+use Doctrine\DBAL\Types\DateTimeType as DateTimeTypeBase,
     Doctrine\DBAL\Platforms\AbstractPlatform,
     Doctrine\DBAL\Types\ConversionException;
 
@@ -10,11 +10,11 @@ use Orkestra\Common\Type\DateTime,
     Orkestra\Common\Type\NullDateTime;
 
 /**
- * Time Type
+ * Date Time Type
  *
- * Provides Doctrine DBAL support for Orkestra's custom DateTime implementation
+ * Provides Doctrine DBAL support for Orkestra's custom DateTime and NullDateTime implementations
  */
-class TimeType extends TimeTypeBase
+class DateTimeType extends DateTimeTypeBase
 {
     /**
      * {@inheritdoc}
@@ -24,10 +24,10 @@ class TimeType extends TimeTypeBase
         if ($value instanceof NullDateTime || $value === null) {
             return null;
         } elseif (!$value instanceof DateTime) {
-            return $value->format($platform->getTimeFormatString());
+            return $value->format($platform->getDateTimeFormatString());
         }
 
-        return $value->toServerTime()->format($platform->getTimeFormatString());
+        return $value->toServerTime()->format($platform->getDateTimeFormatString());
     }
 
     /**
@@ -39,9 +39,9 @@ class TimeType extends TimeTypeBase
             return new NullDateTime();
         }
 
-        $val = DateTime::createFromFormat($platform->getTimeFormatString(), $value);
+        $val = DateTime::createFromFormat($platform->getDateTimeFormatString(), $value);
         if (!$val) {
-            throw ConversionException::conversionFailedFormat($value, $this->getName(), $platform->getTimeFormatString());
+            throw ConversionException::conversionFailedFormat($value, $this->getName(), $platform->getDateTimeFormatString());
         }
 
         return $val;
