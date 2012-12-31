@@ -35,7 +35,7 @@ use Doctrine\DBAL\Types\StringType,
  * and specify the $name and $class properties, then register
  * your new type with Doctrine\DBAL\Types\Type
  */
-abstract class EnumTypeBase extends StringType
+abstract class AbstractEnumType extends StringType
 {
     /**
      * @var string A unique name for this enum type

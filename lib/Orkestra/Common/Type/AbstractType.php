@@ -29,7 +29,7 @@ namespace Orkestra\Common\Type;
  *
  * Base class for reference types that wrap or represent a primitive value type.
  */
-abstract class TypeBase
+abstract class AbstractType
 {
     /**
      * @var mixed The underlying value of this type
@@ -67,6 +67,7 @@ abstract class TypeBase
      * Validates a given value and returns true or false based on the result
      *
      * @param  mixed   $value
+     *
      * @return boolean True if the value is valid
      */
     abstract protected function validate($value);

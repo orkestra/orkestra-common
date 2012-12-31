@@ -30,17 +30,17 @@ require_once __DIR__ . '/../TestCase.php';
 
 use Orkestra\Common\Tests\TestCase,
     Orkestra\Common\Type\Enum,
-    Orkestra\Common\DbalType\EnumTypeBase;
+    Orkestra\Common\DbalType\AbstractEnumType;
 
 /**
- * EnumTypeBase Test
+ * AbstractEnumType Test
  *
- * Tests the functionality provided by the EnumTypeBase class
+ * Tests the functionality provided by the AbstractEnumType class
  *
  * @group orkestra
  * @group common
  */
-class EnumTypeBaseTest extends TestCase
+class AbstractEnumTypeTest extends TestCase
 {
     protected $typesMap;
 
@@ -117,7 +117,7 @@ class EnumTypeBaseTest extends TestCase
     }
 }
 
-class TestEnumEnumType extends EnumTypeBase
+class TestEnumEnumType extends AbstractEnumType
 {
     protected $name = 'test.enum';
     protected $class = 'Orkestra\Common\Tests\DBAL\Types\TestEnum';

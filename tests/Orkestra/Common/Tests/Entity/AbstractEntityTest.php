@@ -32,7 +32,7 @@ use Orkestra\Common\Entity\AbstractEntity,
  *
  * Tests the functionality provided by the AbstractEntity
  */
-class EntityBaseTest extends \PHPUnit_Framework_TestCase
+class AbstractEntityTest extends \PHPUnit_Framework_TestCase
 {
     public function testPrePersistSetsDateCreated()
     {
