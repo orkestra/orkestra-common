@@ -22,37 +22,49 @@
  * IN THE SOFTWARE.
  */
 
-namespace Orkestra\Common\Tests\Type;
+namespace Orkestra\Common\DbalType;
 
-use Orkestra\Common\Type\Enum;
+use Doctrine\DBAL\Types\DateType as DateTypeBase,
+    Doctrine\DBAL\Platforms\AbstractPlatform,
+    Doctrine\DBAL\Types\ConversionException;
+
+use Orkestra\Common\Type\Date,
+    Orkestra\Common\Type\DateTime,
+    Orkestra\Common\Type\NullDateTime;
 
 /**
- * Enum Test
+ * Date Type
  *
- * Tests the functionality provided by the Enum class
- *
- * @group orkestra
- * @group common
+ * Provides Doctrine DBAL support for Orkestra's custom Date implementation
  */
-class EnumTest extends \PHPUnit_Framework_TestCase
+class DateType extends DateTypeBase
 {
-    public function testValidValue()
+    /**
+     * {@inheritdoc}
+     */
+    public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        $enum = new TestEnum(TestEnum::Value);
+        if ($value instanceof NullDateTime || $value === null) {
+            return null;
+        }
 
-        $this->assertEquals('Value', $enum->getValue());
-        $this->assertEquals('Value', $enum->__toString());
+        return $value->format($platform->getDateFormatString());
     }
 
-    public function testInvalidValue()
+    /**
+     * {@inheritdoc}
+     */
+    public function convertToPHPValue($value, AbstractPlatform $platform)
     {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid value specified for enum Orkestra\Common\Tests\Type\TestEnum: Invalid Value');
+        if ($value === null) {
+            return new NullDateTime();
+        }
 
-        $enum = new TestEnum('Invalid Value');
+        $val = Date::createFromFormat('!'.$platform->getDateFormatString(), $value);
+        if (!$val) {
+            throw ConversionException::conversionFailedFormat($value, $this->getName(), $platform->getDateFormatString());
+        }
+
+        return $val;
     }
-}
-
-class TestEnum extends Enum
-{
-    const Value = 'Value';
 }

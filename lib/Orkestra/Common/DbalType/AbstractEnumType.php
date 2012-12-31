@@ -22,65 +22,64 @@
  * IN THE SOFTWARE.
  */
 
-namespace Orkestra\Common\Type;
+namespace Orkestra\Common\DbalType;
+
+use Doctrine\DBAL\Types\StringType,
+    Doctrine\DBAL\Platforms\AbstractPlatform,
+    Doctrine\DBAL\Types\ConversionException;
 
 /**
- * Enum
+ * Base class for enumeration types
  *
- * Base class for any enumeration
+ * Adds support for Enums in Doctrine's DBAL. Extend this class
+ * and specify the $name and $class properties, then register
+ * your new type with Doctrine\DBAL\Types\Type
  */
-abstract class Enum
+abstract class AbstractEnumType extends StringType
 {
     /**
-     * @var array An array containing all possible values for all enums that exist during the execution of this script
+     * @var string A unique name for this enum type
      */
-    protected static $values;
+    protected $name;
 
     /**
-     * @var mixed This instance's value
+     * @var string The fully qualified class name of the Enum that this class wraps
      */
-    protected $value;
+    protected $class;
 
     /**
-     * Constructor
-     *
-     * @param mixed $value A valid value
-     *
-     * @throws \InvalidArgumentException
+     * {@inheritdoc}
      */
-    public function __construct($value)
+    public function convertToPHPValue($value, AbstractPlatform $platform)
     {
-        $className = get_class($this);
+        $class = $this->class;
 
-        if (empty(static::$values[$className])) {
-            $refl = new \ReflectionClass($className);
-            static::$values[$className] = array_values($refl->getConstants());
+        if ($value === null || $value === '') {
+            return null;
         }
 
-        if (!in_array($value, static::$values[$className])) {
-            throw new \InvalidArgumentException(sprintf('Invalid value specified for enum %s: %s', $className, $value));
+        try {
+            $value = new $class($value);
+        } catch (\InvalidArgumentException $e) {
+            throw ConversionException::conversionFailed($value, $this->getName());
         }
 
-        $this->value = $value;
+        return $value;
     }
 
     /**
-     * To String
-     *
-     * @return string
+     * {@inheritdoc}
      */
-    public function __toString()
+    public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        return (string) $this->getValue();
+        return (string) $value;
     }
 
     /**
-     * Get Value
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
-    public function getValue()
+    public function getName()
     {
-        return $this->value;
+        return $this->name;
     }
 }

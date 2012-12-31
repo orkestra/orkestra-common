@@ -22,37 +22,53 @@
  * IN THE SOFTWARE.
  */
 
-namespace Orkestra\Common\Tests\Type;
-
-use Orkestra\Common\Type\Enum;
+namespace Orkestra\Common\Type;
 
 /**
- * Enum Test
+ * Type Base
  *
- * Tests the functionality provided by the Enum class
- *
- * @group orkestra
- * @group common
+ * Base class for reference types that wrap or represent a primitive value type.
  */
-class EnumTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractType
 {
-    public function testValidValue()
-    {
-        $enum = new TestEnum(TestEnum::Value);
+    /**
+     * @var mixed The underlying value of this type
+     */
+    protected $value;
 
-        $this->assertEquals('Value', $enum->getValue());
-        $this->assertEquals('Value', $enum->__toString());
+    /**
+     * Constructor
+     *
+     * @param mixed $value A valid value
+     */
+    public function __construct($value)
+    {
+        $this->setValue($value);
     }
 
-    public function testInvalidValue()
+    /**
+     * Sets the value if it is valid
+     *
+     * @param mixed $value
+     *
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    protected function setValue($value)
     {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid value specified for enum Orkestra\Common\Tests\Type\TestEnum: Invalid Value');
+        if (!$this->validate($value)) {
+            throw new \InvalidArgumentException(sprintf('%s is not a valid value', $value));
+        }
 
-        $enum = new TestEnum('Invalid Value');
+        $this->value = $value;
     }
-}
 
-class TestEnum extends Enum
-{
-    const Value = 'Value';
+    /**
+     * Validates a given value and returns true or false based on the result
+     *
+     * @param  mixed   $value
+     *
+     * @return boolean True if the value is valid
+     */
+    abstract protected function validate($value);
 }

@@ -1,13 +1,33 @@
 <?php
 
+/*
+ * Copyright (c) 2012 Orkestra Community
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to
+ * deal in the Software without restriction, including without limitation the
+ * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+ * sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ * IN THE SOFTWARE.
+ */
+
 namespace Orkestra\Common\Type;
 
 use Orkestra\Common\Exception\TypeException;
 use DateTimeZone;
 
 /**
- * DateTime
- *
  * Extends PHP's native DateTime to allow simplified conversion to and from user/server time
  */
 class DateTime extends \DateTime
@@ -30,8 +50,8 @@ class DateTime extends \DateTime
     /**
      * Create From Format
      *
-     * @param string $format
-     * @param string $time
+     * @param string             $format
+     * @param string             $time
      * @param \DateTimeZone|null $timezone
      *
      * @throws \Orkestra\Common\Exception\TypeException
@@ -68,7 +88,7 @@ class DateTime extends \DateTime
      * Attempts to create a new DateTime object using a given date value and the configured default
      * datetime format
      *
-     * @param string $datetime
+     * @param string             $datetime
      * @param \DateTimeZone|null $timezone
      *
      * @return \Orkestra\Common\Type\DateTime
@@ -81,7 +101,7 @@ class DateTime extends \DateTime
     /**
      * Converts a PHP format string to Javascript format
      *
-     * @param string $format
+     * @param  string $format
      * @return string
      */
     public static function toJsFormat($format)
@@ -160,7 +180,7 @@ class DateTime extends \DateTime
     /**
      * Constructor
      *
-     * @param string $time
+     * @param string             $time
      * @param \DateTimeZone|null $timezone
      */
     public function __construct($time = 'now', DateTimeZone $timezone = null)
@@ -173,8 +193,6 @@ class DateTime extends \DateTime
     }
 
     /**
-     * To String
-     *
      * Returns the DateTime in the user's timezone, using the configured default format
      *
      * @return string

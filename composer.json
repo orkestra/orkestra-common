@@ -1,12 +1,13 @@
 {
     "name" : "orkestra/common",
-    "description" : "Provides common functionality useful for any project",
+    "description" : "Provides common functionality useful for Doctrine 2 based projects",
+    "license" : "MIT",
     "require" : {
         "php" : ">=5.3.2",
-        "ext-curl" : "*",
-        "ext-soap" : "*",
-        "doctrine/orm": ">=2.2.3,<2.4.x-dev",
-        "symfony/http-foundation" : ">=2.0.12,<=2.2.x-dev"
+        "doctrine/orm": ">=2.2.3,<2.4.x-dev"
+    },
+    "suggest" : {
+        "ext-mcrypt" : "For support of encrypted string fields on entities"
     },
     "autoload" : {
         "psr-0" : { "Orkestra\\Common" : "lib/" }
