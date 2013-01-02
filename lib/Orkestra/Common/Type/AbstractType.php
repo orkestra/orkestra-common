@@ -66,7 +66,7 @@ abstract class AbstractType
     /**
      * Validates a given value and returns true or false based on the result
      *
-     * @param  mixed   $value
+     * @param mixed $value
      *
      * @return boolean True if the value is valid
      */

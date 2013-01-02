@@ -63,7 +63,7 @@ class NullDateTime extends DateTime
      * Overridden to disallow comparisons with a NullDateTime
      *
      * @param \DateTime $datetime2
-     * @param bool $absolute
+     * @param bool      $absolute
      *
      * @return null
      */
