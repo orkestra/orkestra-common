@@ -24,14 +24,4 @@ class ArrayType extends Type
         }
         return $val;
     }
-
-    public function closureToMongo()
-    {
-        return '$return = $value;';
-    }
-
-    public function closureToPHP()
-    {
-        return '$return = $value;';
-    }
 }
