@@ -1,5 +1,7 @@
-orkestra-common
+Orkestra Common
 ===============
+
+[![Build Status](https://travis-ci.org/orkestra/orkestra-common.png?branch=master)](https://travis-ci.org/orkestra/orkestra-common)
 
 Provides useful functionality for any Doctrine 2 based project including:
 
