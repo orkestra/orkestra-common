@@ -69,4 +69,12 @@ abstract class AbstractEnumType extends StringType
     {
         return $this->name;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function requiresSQLCommentHint(AbstractPlatform $platform)
+    {
+        return true;
+    }
 }
