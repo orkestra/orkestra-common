@@ -37,15 +37,8 @@ abstract class Enum
      */
     public function __construct($value)
     {
-        $className = get_class($this);
-
-        if (empty(static::$values[$className])) {
-            $refl = new \ReflectionClass($className);
-            static::$values[$className] = array_values($refl->getConstants());
-        }
-
-        if (!in_array($value, static::$values[$className])) {
-            throw new \InvalidArgumentException(sprintf('Invalid value specified for enum %s: %s', $className, $value));
+        if (!in_array($value, static::getValues())) {
+            throw new \InvalidArgumentException(sprintf('Invalid value specified for enum %s: %s', get_class($this), $value));
         }
 
         $this->value = $value;
@@ -69,5 +62,39 @@ abstract class Enum
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * @param string $name
+     * @param array $args
+     *
+     * @return static
+     */
+    public static function __callStatic($name, $args)
+    {
+        return new static(constant('static::' . $name));
+    }
+
+    /**
+     * @return array
+     */
+    public static function toArray()
+    {
+        return static::getValues();
+    }
+
+    /**
+     * @return array
+     */
+    private static function getValues()
+    {
+        $className = get_called_class();
+
+        if (empty(static::$values[$className])) {
+            $refl = new \ReflectionClass($className);
+            static::$values[$className] = array_values($refl->getConstants());
+        }
+
+        return static::$values[$className];
     }
 }
