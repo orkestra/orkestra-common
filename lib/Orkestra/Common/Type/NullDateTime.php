@@ -147,10 +147,11 @@ class NullDateTime extends DateTime
      * @param int $hour
      * @param int $minute
      * @param int $second
+	 * @param int $microsecond
      *
      * @return \Orkestra\Common\Type\NullDateTime
      */
-    public function setTime($hour, $minute, $second = 0)
+    public function setTime($hour, $minute, $second = NULL, $microsecond = NULL)
     {
         return $this;
     }
