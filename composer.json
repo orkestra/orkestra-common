@@ -6,6 +6,9 @@
     "php" : ">=5.3.3",
     "doctrine/orm" : "~2.3"
   },
+  "require-dev" : {
+    "phpunit/phpunit": "4.8.* || ~5.1"
+  },
   "suggest" : {
     "ext-mcrypt" : "For support of encrypted string fields on entities"
   },
