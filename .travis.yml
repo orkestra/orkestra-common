@@ -12,5 +12,5 @@ install:
  
 matrix:
   fast_finish: true
-  allowed_failures:
+  allow_failures:
     - 7.1
