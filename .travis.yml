@@ -8,8 +8,10 @@ php:
   - 7.1
   - hhvm
 
-before_script:
-  - composer self-update --stable
+install:
   - composer install
-
-script: php ./vendor/bin/phpunit
+ 
+matrix:
+  fast_finish: true
+  allowed_failures:
+    - 7.1
